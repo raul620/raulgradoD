@@ -1,0 +1,124 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Register {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<style>
+    .card {
+    background-color: #192640 !important;
+    box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);
+}
+</style>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+    <div class="container">
+        <div class="row ">
+            <div class="col-md-6 mt-5 offset-md-3  ">
+                <div class="card">
+                    <div class="card-header text-center py-4">
+                        <h4 class="title">
+                            Regístrate
+                        </h4>
+
+                        <h6 class="card-category">
+                            {% if msg %}
+                            <span class="text-danger">{{ msg | safe }}</span>
+                            {% else %}
+                            <span>
+                                <small>  <i class="bi bi-star-fill"></i>  Añade tus credenciales</small>
+                            </span>
+                            {% endif %}
+                        </h6>
+
+                    </div>
+
+                    {% if success %}
+
+                    <div class="card-footer text-center">
+                        <a href="{% url 'login' %}" class="btn btn-fill btn-primary">Login</a>
+                    </div>
+
+                    {% else %}
+
+                    <form role="form" method="post" action="">
+
+                        {% csrf_token %}
+
+                        <div class="card-body px-5 py-3">
+
+                            <div class="row">
+                                <div class="col-md-6 px-md-1">
+                                    <div class="form-group">
+                                        <label>Usuario</label>
+                                        {{ form.username }}
+                                    </div>
+                                    <span class="text-danger">{{ form.username.errors }}</span>
+                                </div>
+
+                                <div class="col-md-6 px-md-1">
+                                    <div class="form-group">
+                                        <label>E-mail</label>
+                                        {{ form.email }}
+                                    </div>
+                                    <span class="text-danger">{{ form.email.errors }}</span>
+                                </div>
+
+                                <div class="col-md-6 px-md-1">
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        {{ form.password1 }}
+                                    </div>
+                                    <span class="text-danger">{{ form.password1.errors }}</span>
+                                </div>
+
+                                <div class="col-md-6 px-md-1">
+                                    <div class="form-group">
+                                        <label>Confirma tu Contraseña</label>
+                                        {{ form.password2 }}
+                                    </div>
+                                    <span class="text-danger">{{ form.password2.errors }}</span>
+                                </div>
+                                <div class="col-md-12 px-md-1">
+                                    <div class="form-group">
+                                        <label>Selecciona Tu rol</label>
+                                        {{ form.myRole }}
+                                    </div>
+                                    <span class="text-danger">{{ form.myRole.errors }}</span>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="card-footer text-center">
+                            <button type="submit" name="register" class="btn btn-fill btn-fill">Registrar</button>
+
+                            <br /><br />
+
+                            <p>
+                               ¿Ya tienes una cuenta? <a href="{% url 'login' %}" class="text-primary">iniciar Sesión</a>
+                            </p>
+                        </div>
+
+                    </form>
+
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

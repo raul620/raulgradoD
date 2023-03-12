@@ -1,0 +1,38 @@
+{% for notification in notifications %}
+
+{% if notification.verb == 'message' %}
+
+<div class="alert alert-success">
+    
+    <a href="{% url notification.data.data.url notification.data.data.id %}" class="link-light" style="text-decoration: none">
+        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close"
+            onclick="">
+            <i class="tim-icons icon-simple-remove" hx-post="{% url 'read_notification' notification.id %}"
+                hx-push-url="false" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-target="#bigList"></i>
+        </button>
+        <span style="color:white"> <p style="font-size:larger; font-weight: bold;"> <i class="bi bi-chat-left-dots"></i> {{notification.recipient}}</p> {{notification.description}} </span>
+    </a>
+
+
+
+</div>
+
+{% else %}
+<div class="alert alert-info">
+    
+    <a href="{% url notification.data.data.url notification.data.data.id %}" class="link-light" style="text-decoration: none">
+        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close"
+            onclick="">
+            <i class="tim-icons icon-simple-remove" hx-post="{% url 'read_notification' notification.id %}"
+                hx-push-url="false" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-target="#bigList"></i>
+        </button>
+        <span style="color:white"> <p style="font-size:larger; font-weight: bold;"> <i class="bi bi-people"></i> {{notification.recipient}}</p> {{notification.description}} </span>
+    </a>
+
+
+
+</div>
+{% endif %}
+
+{% endfor %}
+

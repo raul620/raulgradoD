@@ -1,0 +1,73 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Notifications {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content " >
+  <div class="row" >
+
+
+    {% comment %}
+
+    {% include "includes/notilist.html" %}
+
+    {% endcomment %}
+
+
+
+
+    <div class="col-md-6" style="float: none; margin: 0 auto;">
+
+
+      <div class="card" id="refresh-Section"
+        style=" background-color:#192640 !important; box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);">
+        <div class="card-header">
+          <h4 class="card-title">Notificaciones sobre tus ordenes </h4>
+        </div>
+        <div class="card-body" id="bigList">
+
+
+
+          {% include "includes/notilist.html" %}
+
+
+
+
+          {% comment %}
+          {% for notification in notifications %}
+
+          <div class="alert alert-info">
+
+            <a class="link-light" href="{% url notification.data.data.url notification.data.data.id %}"
+              style="text-decoration:none">
+              <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close"
+                onclick="refreshFiv()">
+                <i class="tim-icons icon-simple-remove" hx-post="{% url 'read_notification' notification.id %}"
+                  hx-push-url="false" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'></i>
+              </button>
+              <span class="link-light">{{notification}} {{notification.description}} </span>
+            </a>
+          </div>
+          {% endfor %}
+          {% endcomment %}
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}

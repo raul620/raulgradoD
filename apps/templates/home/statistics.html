@@ -1,0 +1,217 @@
+{% extends "layouts/base.html" %}
+{% load home_extras %}
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+
+
+  <div class="row">
+    <div class="col-md-4 d-flex align-items-stretch">
+      <div class="card">
+        <div class="card-header">
+          Topicos mas frecuentes
+<p> <small><i class="bi bi-star-fill"></i> Encuentra los <i>tags</i> mas utlizados en este entorno</small></p>
+        </div>
+        <div class="card-body">
+
+          <div>
+
+            <canvas id="myChart"></canvas>
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+
+
+
+
+
+
+      <div>
+        
+        <!--<canvas id="myChart2"></canvas>-->
+      </div>
+    </div>
+
+    <div class="col-md-8 d-flex align-items-stretch">
+      <div class="card">
+        <div class="card-header">
+          Actividad de la Semana
+          <p> <small><i class="bi bi-star-fill"></i> Los Días mas activos de la semana</small></p>
+        </div>
+        <div class="card-body">
+
+          <div>
+
+            <canvas id="myChart2"></canvas>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    
+
+
+
+  </div>
+ <!-- <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Miembros mas activos
+
+        </div>
+        <div class="card-body">
+
+          <div>
+
+            <canvas id="myChart3"></canvas>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>-->
+
+
+
+
+  
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('myChart');
+  const ctx2 = document.getElementById('myChart2');
+
+  const data = {
+    labels: [
+   '{{label.0}}',
+   '{{label.1}}',
+   '{{label.2}}',
+   '{{label.3}}',
+   '{{label.4}}',
+   '{{label.5}}',
+   
+
+
+    ],
+    datasets: [{
+      label: '',
+      data: {{data|safe}},
+
+      backgroundColor: [
+        'rgb(33, 97, 140)',
+        'rgb(40, 116, 166 )',
+        'rgb(46, 134, 193)',
+        'rgb(52, 152, 219 )',
+        'rgb(93, 173, 226  )',
+      ],
+      hoverOffset: 4
+    }]
+  };
+  const myChart = new Chart(ctx, {
+    type: 'pie',
+    data: data,
+
+    options: {
+  
+      responsive: true,
+      plugins:{
+        legend:{
+          display:false
+        }
+      }
+   
+    },
+
+
+ 
+  });
+
+
+
+
+
+
+
+
+  const data2 = {
+    labels:  {{datelabel|safe}},
+    datasets: [{
+     
+      data:{{datedate|safe}},
+       
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1
+    }]
+  };
+  const myChart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: data2,
+    options: {
+      scales: {
+        y: {
+
+          beginAtZero: true,
+          min: 0,
+          max: 50,
+        },
+        
+      },
+      plugins:{
+        legend:{
+          display:false
+        }
+      }
+
+    },
+  });
+
+
+</script>
+
+{% endblock content %}
+{% block javascripts %}
+
+
+
+{% endblock javascripts %}

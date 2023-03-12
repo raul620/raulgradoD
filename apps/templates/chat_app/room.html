@@ -1,0 +1,151 @@
+{% extends "layouts/base.html" %}
+{% load home_extras %}
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+<style>
+       input[type=submit] {
+      width: 50px;
+      height: 50px;
+    
+
+
+     /* padding: 14px 20px;
+      margin: 8px 0;*/
+      border: none;
+
+      background-color: #00f2c3;;
+      color: white;
+     
+      border-radius: 50%;
+      cursor: pointer;
+      }
+      .send{
+      position:absolute;
+      margin-top:-70%;
+      margin-left:15%;
+      font-size: 30px;
+      
+    }
+    
+      input[type=text], select {
+      width: 80%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 20px 20px 20px 20px;
+      background-color: #192640;
+      color: white !important;
+      }
+
+
+
+
+</style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+  <div class="container">
+    <div class="card ">
+
+
+
+      <div class="card-header text-left">
+        <h2>{{room}}   Atención Directa</h2>
+      </div>
+
+      <div class="card-body ">
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-8">
+
+    <div id="display" style="overflow:auto; max-height: 200px; min-height: 200px; border: 1px solid; border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;border-top-right-radius: 15px;border-top-left-radius: 15px; ">
+
+      <!-- <div class="container darker">
+        <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
+        <span class="time-left">20th, April 2021</span>
+      </div> -->
+      
+      </div>
+
+
+      <form id="post-form">
+        {% csrf_token %}
+        <div class="row pl-2 pr-4 pt-3">
+
+          <div class="col-11">
+            <input type="hidden" name="username" id="username" value="{{username}}"/>
+            <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+            <input type="text" name="message" id="message" width="100px" />
+          </div>
+
+          <div class="col-1" style="float:left" ><input class="m-0 p-0 " type="submit" value="⚪️" ></div>
+        </div>
+     
+
+        
+    </form>
+
+  </div>
+  <div class="col-2"></div>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block javascripts %}
+<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function(){
+  
+  setInterval(function(){
+      $.ajax({
+          type: 'GET',
+          url : "/chat/getMessages/{{room}}/",
+          success: function(response){
+              console.log(response);
+              $("#display").empty();
+              for (var key in response.messages)
+              {
+                  var temp="<div class='container darker mb-3'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time-left'> <small>"+response.messages[key].date+"</small></span></div>";
+                  $("#display").append(temp);
+              }
+          },
+          error: function(response){
+              alert('An error occured')
+          }
+      });
+  },1000);
+  })
+  </script>
+<script type="text/javascript">
+  $(document).on('submit','#post-form',function(e){
+    e.preventDefault();
+
+    $.ajax({
+      type:'POST',
+      url:'/chat/send',
+      data:{
+          username:$('#username').val(),
+          room_id:$('#room_id').val(),
+          message:$('#message').val(),
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+      },
+      success: function(data){
+         //alert(data)
+      }
+    });
+    document.getElementById('message').value = ''
+  });
+</script>
+{% endblock javascripts %}

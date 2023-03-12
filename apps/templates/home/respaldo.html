@@ -1,0 +1,186 @@
+{% comment %}
+{% for order in orders %}
+{% if order.customer|stringformat:"i" == user.get_username|stringformat:"i" %}
+<div class="card w-100 m-1" style="border: solid 2px; background-color:#192640 !important;">
+    <div class="card-body " style=" ">
+
+        <p class="card-text text-right">
+        <div class="row">
+            <div class="col-6">
+                <h5 class="card-title m-1"><a class='text-reset'
+                        href="{% url 'view_order' order.id %}">{{order.title}}</a></h5>
+                {% for tag in order.tags.all %}
+                <a class="mr-1 badge badge-default text-white"> {{tag}}</a>
+                {% endfor%}
+            </div>
+            <div class="col-6">
+                <p class="text-right">
+
+                </p>
+                <p class="text-right"> <small>
+                        Creado por<strong>{{order.customer}}</strong> el dia
+                        <strong>{{order.date_created}}</strong></small>
+                </p>
+                <p class="card-text text-right">
+                    {%if order.status == 'Pending' %}
+                    <i class="bi bi-circle-fill" style="color:rgb(185, 97, 97)"></i>
+                    {% elif order.status == 'Take by' %}
+                    <i class="bi bi-circle-fill" style="color:yellow"></i>
+                    {% elif order.status == 'Solver' %}
+                    <i class="bi bi-circle-fill" style="color:green"></i>
+
+                    {% endif %}
+                    <small>se encuentra <strong>{{order.status}}</strong></small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{% endcomment %}
+
+{% comment %}
+{% for order in orders %}
+{% if order.customer|stringformat:"i" == user.get_username|stringformat:"i" %}
+{% endif %}
+
+<div class="card w-100">
+    <div class="card-body">
+        {% if order.takenby == request.user or order.takenby == None %}
+        <h4 class="card-title "><a class='text-reset'
+                href="{% url 'view_order' order.id %}">{{order.title}}</a></h4>
+
+
+        {% else %}
+        <h4 class="card-title">{{order.title}}</h4>
+        {%endif%}
+        {% for tag in order.tags.all %}
+        <a class="mr-1 badge badge-default text-white"> {{tag}}</a>
+        {% endfor%}
+
+        <p class="card-text text-right">Creado por <strong>{{order.customer}}</strong> el dia
+            <strong>{{order.date_created}}</strong>
+        </p>
+        <p class="card-text text-right ">
+            {%if order.status == 'Pending' %}
+            <a style="color:red; font-size: 30pt;">•</a>
+            {% elif order.status == 'Take by' %}
+            <a style="color:yellow; font-size: 30pt;">•</a>
+            {% elif order.status == 'Solver' %}
+            <a style="color:green; font-size: 30pt;">•</a>
+
+            {% endif %}
+            se encuentra <strong>{{order.status}}</strong>
+        </p>
+
+
+
+
+
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endfor %}
+
+
+{% endcomment %}
+
+
+
+{% comment %}
+<h4>Informacion del equipo</h4>
+<div class="row p-2">
+
+
+    <div class="col-2 ">
+
+        <i class="bi bi-pc-display" style="font-size:350%"></i>
+
+    </div>
+    <div class="col-8 ">
+        Ip: <small>{{order.ip_dir}}</small>
+        <br>
+        Mac: <small>{{order.mac_dir}}</small>
+
+    </div>
+
+
+</div>
+
+
+
+<div class='row'>
+    <div class="col-7">
+        <h5> Descripcion <i class="bi-"></i> </h5>
+        <div>
+            <p>{{order.description}}</p>
+        </div>
+
+
+
+
+        <div class="col-12">
+
+
+            {% if order.screenshot %}
+
+            <img src='{{order.screenshot.url}}' width="50%">
+
+            {% else %}
+            <br>
+            Imagen no disponible
+            {% endif %}
+        </div>
+
+
+    </div>
+    <div class="col-3">
+        <h6>Lista de componentes</h6>
+        {% for equipo in equipos%}
+        <div class="card m-1" style=" border:solid 1px">
+            <div class="card-header">
+                <p>{{ equipo.nombre_equipo}}</p>
+            </div>
+            <div class="card-body">
+
+                <p> {{ equipo.modelo}} </p>
+
+            </div>
+
+
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+</div>
+<br>
+
+
+
+
+{% endcomment %}
+
+
+{% comment %}
+
+<div class="card">
+  <div class="card-body">
+    <p> <a href="{% url 'view_order' order.id %}">{{order.title}}</a></p>
+  </div>
+
+</div>
+
+
+{% endcomment %}

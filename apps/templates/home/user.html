@@ -1,0 +1,221 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} User Profile {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+  <div class="row">
+    <div class="col-md-7">
+      <div class="card" style="background-color:#192640 !important; box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);">
+        <div class="card-header">
+          <h3 class="title">Edita tu Perfil </h3>
+        </div>
+        <div class="card-body">
+
+          <form action="" method="POST" role="form" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-10">
+
+                {% csrf_token %}
+
+                {{ form.errors }}
+                {{ form.non_field_errors }}
+  
+
+
+
+                <div class="card-body px-5 py-3">
+
+                  <div class="row">
+                    <div class="col-md-12 px-md-1">
+                      <div class="form-group">
+                        <label>Email</label>
+                        {{ form.email }}
+                      </div>
+                      <span class="text-danger">{{ form.email.errors }}</span>
+                    </div>
+
+                    <div class="col-md-6 px-md-1">
+                      <div class="form-group">
+                        <label>Name</label>
+                        {{ form.first_name }}
+                      </div>
+                      <span class="text-danger">{{ form.first_name.errors }}</span>
+                    </div>
+
+                    <div class="col-md-6 px-md-1">
+                      <div class="form-group">
+                        <label>Last Name</label>
+                        {{ form.last_name }}
+                      </div>
+                      <span class="text-danger">{{ form.last_name.errors }}</span>
+                    </div>
+
+                    <div class="col-md-6 px-md-1">
+                      <div class="form-group">
+                        <label>Direccion</label>
+                        {{ form.location }}
+                      </div>
+                      <span class="text-danger">{{ form.location.errors }}</span>
+                    </div>
+
+                    <div class="col-md-6 px-md-1">
+                      <div class="form-group">
+                        <label>Numero de telefono</label>
+                        {{ form.phone_number }}
+                      </div>
+                      <span class="text-danger">{{ form.phone_number.errors }}</span>
+                    </div>
+
+                    <div class="col-md-6 px-md-1">
+                      <div class="form-group">
+                        <label>Ciudad</label>
+                        {{ form.city }}
+                      </div>
+                      <span class="text-danger">{{ form.city.errors }}</span>
+                    </div>
+                    <div class="col-md-6 px-md-1">
+                      <div class="form-group">
+                        <label>Pais</label>
+                        {{ form.country }}
+                      </div>
+                      <span class="text-danger">{{ form.country.errors }}</span>
+                    </div>
+        
+
+                    <div class="col-md-6 px-md-1">
+                      <div class="form-group">
+                          <label>Codigo Postal</label>
+                          {{ form.postal_code }}
+                      </div>
+                      <span class="text-danger">{{ form.postal_code.errors }}</span>
+                  </div>
+
+                  <div class="col-md-6 px-md-1">
+                    <div class="form-group">
+                        <label>Biografia</label>
+                        {{ form.bio }}
+                    </div>
+                    <span class="text-danger">{{ form.bio.errors }}</span>
+                </div>
+
+                <div class="col-md-12 px-md-1">
+                  <div class="form-group">
+                      <label>Foto de perfil</label>
+                      <p><small>Una foto de tu rostro genera confianza en el trato cliente-tecnico Sube Una!</small> </p>
+                <i class="bi bi-camera-fill" style="font-size: 30pt;">  <label  style="width:100%; opacity: 0%;"> {{ form.profile_pic }}</label></i>
+                  </div>
+                  <span class="text-danger">{{ form.profile_pic.errors }}</span>
+              </div>
+
+    
+
+                  </div>
+
+
+                </div>
+
+                <button type="submit" class="btn btn-fill btn-success ">Save</button>
+              </div>
+
+
+
+              <div class="col-md-1"></div>
+            </div>
+
+    
+
+
+          </form>
+        </div>
+        <div class="card-footer">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="card card-user" style="background-color:#192640 !important; box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);">
+        <div class="card-body">
+          <p class="card-text">
+          <div class="author">
+            <!--    <div class="block block-one"></div>
+                <div class="block block-two"></div>
+                <div class="block block-three"></div>
+                <div class="block block-four"></div>-->
+            <a href="javascript:void(0)">
+            </a>
+
+
+
+            <div class="card-up" style="background-image: url('../../static/media/profilebanner.jpg');  border-radius: 10px;">
+
+              
+              
+            
+              {% if request.user.profile_pic %}
+
+              <img class="avatar" src="{{request.user.profile_pic.url}}" alt="..." style='margin-top: 10%;'/>
+
+              {% else %}
+             
+              <img class="avatar"  src="../../static/assets/img/anime3.png" alt="Profile Photo" style='margin-top: 10%;'>
+              {% endif %}
+
+            
+            
+            </div>
+
+              <br>
+              <p><small >  {{request.user.username}}</small>  </p>
+            <h4 class="title"> {{request.user.first_name}} {{request.user.last_name}}</h4>
+           
+            <div class="card-description ">
+              "{{request.user.bio}}"
+
+            </div>
+        
+            <p class="description">
+        
+            </p>
+
+
+          </div>
+          </p>
+
+          <p class="text-center"><small> <i class="bi bi-check-circle-fill"></i> Parte de esta informacion no se desplegara para otros usuarios. Llenarlo vuelves tu perfil confiable. </small></p>
+
+          <div class="card-description">
+            <div class="row">
+              <div class="col-6">
+                <p><small>de: <i class="bi bi-geo-alt-fill"></i><strong> {{request.user.location}}</strong></small> </p>
+                <p><small>actualmente en: <i class="bi bi-geo-alt-fill"></i> <strong> {{request.user.city}} {{request.user.postal_code}}</strong></small> </p>
+
+              </div>
+              <div class="col-6 text-right">
+                <p><small>Telefono: <i class="bi bi-telephone-fill"> </i> <strong> {{request.user.phone_number}}</strong></small> </p>
+                <p><small>Correo: <i class="bi bi-envelope-fill"> </i><strong> {{request.user.email}}</strong></small> </p>
+
+              </div>
+            </div>
+    
+  
+
+          </div>
+
+        </div>
+        <div class="card-footer">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

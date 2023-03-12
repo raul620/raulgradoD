@@ -1,0 +1,251 @@
+{% extends "layouts/base-no-search.html" %}
+
+{% block title %} Tables {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-2"></div>
+
+        {% load home_extras %}
+        {% if request.user.is_superuser %}
+        <div class="col-md-7">
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-title"> Simple Table</h4>
+                </div>
+                <div class="card-body">
+                    {% for order in mySelectedOrders %}
+                    <div class="card">
+                        <div class="card-body">
+                            <p>{{order.title}}</p>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+                    {% elif request.user|has_group:"myUser" %}
+                    <div class="col-md-7">
+                        <div class="card "
+                            style="border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;border-top-right-radius: 15px;border-top-left-radius: 15px; background-color: #192640 !important;  box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);">
+                            <div class="card-header">
+
+                            </div>
+                            <div class="card-body">
+                                <h4 class="card-title"> <strong>Ordenes Cerradas</strong></h4>
+                                <div>
+                                </div>
+                                {% else %}
+                                <div class="col-md-7">
+                                    <div class="card "
+                                        style="background-color: #192640 !important;  box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);">
+                                        <div class="card-header">
+                                            <h4 class="card-title"> Tabla de Ordenes Activas en tu Revision </h4>
+                                        </div>
+                                        <div class="card-body">
+
+
+
+
+                                            <div class="table-responsive overflow-hidden">
+                                                <table class="table  table-sm table-bordered " id="">
+                                                    <thead class=" text-center thead-light  ">
+                                                        <tr>
+                                                            <th>
+                                                                title
+                                                            </th>
+                                                            <th>
+                                                                status
+                                                            </th>
+                                                            <th>
+                                                                customer
+                                                            </th>
+                                                            <th class="">
+                                                                date
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody class="text-center">
+
+                                                        {% for order in mySelectedOrders %}
+                                                        {% if order.customer|stringformat:"i" ==
+                                                        user.get_username|stringformat:"i" %}
+                                                        <tr>
+
+                                                            <td>
+                                                                <a href="{% url 'view_order' order.id %}"
+                                                                    class="link-light"
+                                                                    style="color: white ! important;">{{order.title}}</a>
+                                                            </td>
+
+
+                                                            <td class="" style="background-color: #5bbc48 ">
+
+                                                                <p> {{order.status}}
+                                                                </p>
+                                                            </td>
+                                                            <td>{{order.customer}}</td>
+
+                                                            <td>{{order.date_created}}</td>
+
+
+                                                        </tr>
+                                                        {% endif %}
+                                                        {% endfor%}
+
+                                                    </tbody>
+
+
+                                                </table>
+                                            </div>
+
+                                            {% comment %}
+                                            <div class="card w-100 m-1"
+                                                style="border: solid 2px; background-color:#192640 !important;">
+                                                <div class="card-body " style=" ">
+
+                                                    <p class="card-text text-right">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <h4 class="card-title m-1"><a class='text-reset'
+                                                                    href="{% url 'view_order' order.id %}">{{order.title}}</a>
+                                                            </h4>
+
+
+                                                            {% for tag in order.tags.all %}
+                                                            <a class="mr-1 badge badge-default text-white"> {{tag}}</a>
+                                                            {% endfor%}
+
+                                                        </div>
+
+                                                        <div class="col-6">
+                                                            <p class="text-right mt-1"> <small>
+                                                                    Creado por <strong>{{order.customer}}</strong> el
+                                                                    dia
+                                                                    <strong>{{order.date_created}}</strong></small>
+                                                            </p>
+                                                            <p class="card-text text-right">
+
+                                                                <small>se encuentra
+                                                                    <strong>{{order.status}}</strong></small>
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {% endcomment %}
+
+
+
+
+
+                                            {% endif %}
+
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="card "
+                                                style="background-color: #192640 !important;  box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);">
+                                                <div class="card-header">
+
+                                                    <div class="row">
+
+                                                        <div class="col-9">
+
+
+
+                                                        </div>
+
+                                                        <div class="col-3">
+
+                                                            <div class="form-outline">
+                                                                <form action="{% url 'search_results_tables' %}"
+                                                                    method="GET">
+                                                                    <input name="q" type="text" class="form-control"
+                                                                        id="inlineFormInputGroup" placeholder="SEARCH">
+                                                                    <button type="button" class="close"
+                                                                        data-dismiss="modal" aria-label="Close">
+
+                                                                    </button>
+                                                                </form>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+
+
+                                                    </div>
+
+
+                                                    <div class="table">
+                                                        <table class="table tablesorter " id="">
+                                                            <thead class=" text-primary text-center">
+                                                                <tr>
+                                                                    <th>
+                                                                        title
+                                                                    </th>
+                                                                    <th>
+                                                                        status
+                                                                    </th>
+                                                                    <th>
+                                                                        customer
+                                                                    </th>
+                                                                    <th class="">
+                                                                        date
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center">
+
+                                                                {% for orders in listado_orders %}
+                                                                <tr>
+
+                                                                    <td><a
+                                                                            href="{% url 'view_order' orders.id %}">{{orders.title}}</a>
+                                                                    </td>
+                                                                    <td> {{orders.status}}</td>
+                                                                    <td>{{orders.customer}}</td>
+
+                                                                    <td>{{orders.date_created}}</td>
+
+                                                                </tr>
+                                                                {% endfor%}
+
+                                                            </tbody>
+
+
+                                                        </table>
+                                                        {% include 'home/paginator.html' %}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-2"></div>
+
+                            </div>
+
+                        </div>
+
+
+                        {% endblock content %}
+
+                        <!-- Specific Page JS goes HERE  -->
+                        {% block javascripts %}
+
+                        {% endblock javascripts %}

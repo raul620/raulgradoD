@@ -1,0 +1,55 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Register {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% block content %}
+<div class="content ">
+    <div class="container ">
+<div class="card">
+
+
+
+    <div class="card-body">
+<form enctype="multipart/form-data" class="container pt-5 " method="post" >
+    {% csrf_token %}
+        {{form}}
+        <div class="form-group px-3 pb-4">
+            <button type="submit" class="btn btn-secondary btn-block">Submit</button>
+        </div>
+
+    </form>
+    </div>
+
+
+
+</div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<style>
+    .content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .card{
+        background-color: #192640 !important;  box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);
+    }
+    
+    </style>
+
+<script>
+    $(document).ready(function(){
+        $("#id_Area").attr("class", 'form-control')
+        
+        
+    });
+
+
+</script>
+{% endblock content %}

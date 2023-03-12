@@ -1,0 +1,470 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Register {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% block content %}
+
+<div class="row">
+    <div class="col-2"></div>
+
+    <div class="col-8">
+
+        <form enctype="multipart/form-data" class="container pt-5 " method="post" id="product_form" action="{%  url 'create'%}">
+            {% csrf_token %}
+            <!-- main form start --- in our case product form -->
+            <div class="card "
+                style="background-color: #192640 !important;  box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);">
+                <div class="card-header">
+                    <h4 class="font-weight-bold card-title">Crear Orden</h4>
+                </div>
+                <div class="card-body m-3">
+                    {% comment %}
+                    <div class="row">
+                        <div class="col-12">
+                            {% for field in form %}
+                            <div class="p-3">
+                                <label>{{field.label}}</label>
+                                {% if field.field.required %}
+                                <span style="color: red;" class="required">*</span>
+                                {% endif %}
+
+                                {{field}}
+                                {% if field.help_text %}
+                                <small style="color: grey">{{ field.help_text }}</small>
+                                {% endif %}
+                                {% for error in field.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endcomment %}
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h5>Título</h5>
+                            <p><small>Sé específico e imagina que estás haciendo la pregunta a otra persona</small></p>
+                            <label style="width:100%">{{form.title}}</label>
+                            {% for error in title.errors %}
+                            <p style="color: red">{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                       
+                        <div class="col-6">
+                            <h5>Direccion Ip</h5>
+
+                            <label style="width:100%" data-toggle="tooltip" data-placement="top" data-html="true" 
+                                title="<div class='row'> <div class='col-6'><small>Identifica la Ip de tu equipo: Windows:<br> Simbolos de sistema > Escribe 'ipconfig' > Direccion Ipv4 </small></div>  <div class='col-6'><small>Identifica la Ip de tu equipo: Debian:<br> Terminal > Escribe 'ipconfig' > Direccion Ipv4 </small> </div> </div> ">{{form.Area}}</label>
+                                {% for error in Area.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                        </div>
+                      
+                        <div class="col-6">
+                            <h5>Direccion Mac</h5>
+                            <label style="width:100%" data-toggle="tooltip" data-placement="top" data-html="true"
+                                title="<div class='row'> <div class='col-6'><small>Identifica la Ip de tu equipo: Windows:<br> Simbolos de sistema > Escribe 'ipconfig/all' > Direccion Fisica </small></div>  <div class='col-6'><small>Identifica la Ip de tu equipo: Debian:<br> Terminal > Escribe 'ipconfig ' > Direccion HWaddr </small> </div> </div> ">{{form.ComputoRegistrado}}</label>
+                                {% for error in ComputoRegistrado.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        
+
+
+                        <div class="col-6">
+                            <h5>Direccion Ip</h5>
+
+                             <label style="width:100%" data-toggle="tooltip" data-placement="top" data-html="true"
+                                title="<div class='row'> <div class='col-6'><small>Identifica la Ip de tu equipo: Windows:<br> Simbolos de sistema > Escribe 'ipconfig' > Direccion Ipv4 </small></div>  <div class='col-6'><small>Identifica la Ip de tu equipo: Debian:<br> Terminal > Escribe 'ipconfig' > Direccion Ipv4 </small> </div> </div> ">{{form.ip_dir}}</label>
+                                {% for error in ip_dir.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        <div class="col-6">
+                            <h5>Direccion Mac</h5>
+                            <label style="width:100%" data-toggle="tooltip" data-placement="top" data-html="true"
+                                title="<div class='row'> <div class='col-6'><small>Identifica la Ip de tu equipo: Windows:<br> Simbolos de sistema > Escribe 'ipconfig/all' > Direccion Fisica </small></div>  <div class='col-6'><small>Identifica la Ip de tu equipo: Debian:<br> Terminal > Escribe 'ipconfig ' > Direccion HWaddr </small> </div> </div> ">{{form.mac_dir}}</label>
+                                {% for error in mac_dir.errors %}
+                                <p style="color: red">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+
+                        <div class="col-12">
+                            <h5>Descripcion</h5>
+                            <p><small>Incluye toda la información que alguien necesitaría para responder tu
+                                    pregunta</small></p>
+                            <label class="text-white" style="width:100%; color:white">{{form.description}}</label>
+                        </div>
+                        <br>
+                        <div class="col-6 ">
+                            <h5>Tags</h5>
+                            <div class="container">
+                                <label style="width:100%" data-toggle="tooltip" data-placement="top" data-html="true"
+                                    title="<small>Ingresa Palabras claves relacionadas con tu problema. <br> Ex: impresora, Hurto...</small>">{{form.tags}}</label>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <h5>Agrega una imagen</h5>
+                            <p><small>Sube una foto o Captura con tu poblema</small> </p>
+                        <label style="width:100%; ">
+                                    {{form.screenshot}}     <i class="bi bi-camera-fill" style="font-size: 30pt;"> </i></label>
+                        </div>
+
+
+                        
+
+                    </div>
+
+
+                </div>
+
+            </div>
+            <!-- main form end --- in our case product form -->
+
+            <!-- inline form for Images start -->
+
+            <!-- EXPLAINING with named_formsets.images as formset -->
+            <!-- Note: named_formsets is used in get_context_data function in views.py -->
+            <!-- Note: here images is our ImageFormSet name, used in get_named_formsets function in views.py -->
+            {% with named_formsets.images as formset %}
+            {{ formset.management_form }}
+            <script type="text/html" id="images-template">   // id="inlineformsetname-template"
+                    <tr id="images-__prefix__" class= hide_all>  // id="inlineformsetname-__prefix__"
+                        {% for fields in formset.empty_form.hidden_fields %}
+                            {{ fields }}
+                        {% endfor %}
+                    
+                        {% for fields in formset.empty_form.visible_fields %}
+                            <td>{{fields}}</td>
+                        {% endfor %}
+                    </tr>
+                </script>
+
+            <div class="card mt-4 px-3 pb-3"
+                style="background-color: #192640 !important;  box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);">
+                <div class="card-header">
+                    <h4 class="font-weight-bold card-title">Agregar Software</h4>
+                </div>
+                <table class="table card-body">
+                    <thead class="text-secondary">
+                        <th>Nombre <span style="color: red;" class="required">*</span></th>
+                        <th>Descripción</th>
+                        <th>Omitir/Eliminar</th>
+                    </thead>
+                    <tbody id="item-images">
+                        <!-- id="item-inlineformsetname" -->
+                        <!-- formset non forms errors -->
+                        {% for error in formset.non_form_errors %}
+                        <span style="color: red">{{ error }}</span>
+                        {% endfor %}
+                        {% for formss in formset %}
+                        {{ formss.management_form }}
+                        <tr id="images-{{ forloop.counter0 }}" class=hide_all>
+                            <!-- id="inlineformsetname-counter" -->
+                            {{ formss.id }}
+                            {% for field in formss.visible_fields %}
+                            <td>
+                                {{field}}
+                                {% for error in field.errors %}
+                                <span style="color: red">{{ error }}</span>
+                                {% endfor %}
+                            </td>
+                            {% endfor %}
+                            <!-- delete code -->
+                            {% if formss.instance.pk %}
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#exampleModal{{formss.instance.pk}}">
+                                    Delete
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal{{formss.instance.pk}}" tabindex="-1"
+                                    role="dialog" aria-labelledby="exampleModalLabel{{formss.instance.pk}}"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel{{formss.instance.pk}}">Are
+                                                    Your
+                                                    Sure You Want To Delete This?</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="{% url 'delete_image' formss.instance.pk %}" type="button"
+                                                    class="btn btn-primary">Yes, Delete</a>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="#" id="add-image-button" class="btn btn-secondary add-images">Agregar Más</a>
+                <!-- id="add-inlineformsetname-button" -->
+            </div>
+            {% endwith %}
+            <!-- inline form for Images end -->
+
+            <!-- inline form for Variant start -->
+
+            <!-- EXPLAINING with named_formsets.variants as formset -->
+            <!-- Note: named_formsets is used in get_context_data function in views.py -->
+            <!-- Note: here variants is our VariantFormSet name, used in get_named_formsets function in views.py -->
+            {% with named_formsets.variants as formset %}
+            {{ formset.management_form }}
+            <script type="text/html" id="variants-template">  // id="inlineformsetname-template"
+                    // id='inlineformsetname-__prefix__' 
+                    <tr id="variants-__prefix__" class= hide_all>
+                        {% for fields in formset.empty_form.hidden_fields %}
+                            {{ fields }}
+                        {% endfor %}
+                    
+                        {% for fields in formset.empty_form.visible_fields %}
+                            <td>{{fields}}</td>
+                        {% endfor %}
+                    </tr>
+                </script>
+            <div class="card mt-4 px-3 pb-3"
+                style="background-color: #192640 !important;  box-shadow: 0px 0px 45px 0px rgba(0, 0, 0, 0.6);">
+                <div class="card-header card-header-secondary">
+                    <h4 class="font-weight-bold  card-title">Agregar Equipo de Equipo</h4>
+                </div>
+                <table class="table card-header">
+                    <thead class="text-secondary">
+                        <th>Nombre <span style="color: red;" class="required">*</span></th>
+                        <th>Modelo <span style="color: red;" class="required">*</span></th>
+                        <th>Descripcion</th>
+                        <th>Omitir/Eliminar</th>
+                    </thead>
+                    <tbody id="item-variants">
+                        <!-- id="item-inlineformsetname" -->
+                        <!-- formset non forms errors -->
+                        {% for error in formset.non_form_errors %}
+                        <span style="color: red">{{ error }}</span>
+                        {% endfor %}
+                        {% for formss in formset %}
+                        {{ formss.management_form }}
+                        <tr id="variants-{{ forloop.counter0 }}" class=hide_all>
+                            <!-- id="inlineformsetname-counter" -->
+                            {{ formss.id }}
+                            {% for field in formss.visible_fields %}
+                            <td>
+                                {{field}}
+                                {% for error in field.errors %}
+                                <span style="color: red">{{ error }}</span>
+                                {% endfor %}
+
+                                {% comment %} {{ field.DELETE }} {% endcomment %}
+                            </td>
+                            {% endfor %}
+                            {% comment %} for delete {% endcomment %}
+                            {% if formss.instance.pk %}
+                            <td>
+                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#exampleModal{{formss.instance.pk}}">
+                                    Delete
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal{{formss.instance.pk}}" tabindex="-1"
+                                    role="dialog" aria-labelledby="exampleModalLabel{{formss.instance.pk}}"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel{{formss.instance.pk}}">Are
+                                                    Your
+                                                    Sure You Want To Delete This?</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="{% url 'delete_variant' formss.instance.pk %}" type="button"
+                                                    class="btn btn-primary">Yes, Delete</a>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <a href="#" id="add-variant-button" class="btn btn-secondary add-variants">Agregar Más</a>
+                <!-- id="add-inlineformsetname-button" -->
+            </div>
+
+            {% endwith %}
+            <!-- inline form for Images end -->
+            <div class="form-group px-3 pb-4">
+                <button type="submit" class="btn btn-secondary btn-block">Submit</button>
+            </div>
+            <div class="form-group">
+            </div>
+        </form>
+
+
+    </div>
+    <div class="col-8"></div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+
+
+<script >
+$(function (){
+    $('select[name="Area"]').on('change', function(){
+       var id = $(this).val(); 
+       var SelectEquipo=  $('select[name="ComputoRegistrado"]');
+        var options = '<option value="">  ---------------- </option>'
+       console.log(id)
+
+$.ajaxSetup({
+  headers: { "X-CSRFToken": '{{csrf_token}}' }
+});
+
+$.ajax({
+    'url':"{% url 'select1' %}",
+    'type':'POST',
+   
+    'data':{
+        'action':"search_computos",
+        'data':id,
+
+    },
+    'dataType':'Json',
+
+}).done(function (data){
+    console.log(data)
+    if(!data.hasOwnProperty('error')){
+        console.log(data)
+        $.each(data,function (key,value){
+             options += '<option value="'+value.id+'">'+value.modelo+' </option>'
+        })
+        return false
+    }
+    message_error(data.error);
+
+
+}).fail(function(jqXHR,textStatus,errorThrown){
+    alert(textStatus + ': ' + errorThrown);
+}).always(function(data){
+    SelectEquipo.html(options);
+    
+})
+
+
+    })
+});
+
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        // when user clicks add more btn of images
+        $('.add-images').click(function (ev) {
+            ev.preventDefault();
+            var count = $('#item-images').children().length;
+            var tmplMarkup = $('#images-template').html();
+            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+            $('#item-images').append(compiledTmpl);
+
+            // update form count
+            $('#id_images-TOTAL_FORMS').attr('value', count + 1);
+        });
+    });
+
+    $(document).ready(function () {
+        // when user clicks add more btn of variants
+        $('.add-variants').click(function (ev) {
+            ev.preventDefault();
+            var count = $('#item-variants').children().length;
+            var tmplMarkup = $('#variants-template').html();
+            var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+            $('#item-variants').append(compiledTmpl);
+
+            // update form count
+            $('#id_variants-TOTAL_FORMS').attr('value', count + 1);
+        });
+    });
+</script>
+
+
+<script>
+
+    /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
+    var prevScrollpos = window.pageYOffset;
+    window.onscroll = function () {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            document.getElementById("navbar").style.top = "0";
+        } else {
+            document.getElementById("navbar").style.top = "-200%";
+        }
+        prevScrollpos = currentScrollPos;
+    }
+</script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+{% endblock content %}
+{% block javascripts %}
+
+
+<script>
+    $(document).ready(function(){
+
+        $("#id_Area").removeAttr("required", 'false')
+        $("#id_ComputoRegistrado").removeAttr("required", 'false')
+        $("#id_ip_dir").removeAttr("required")
+        $("#id_mac_dir").removeAttr("required")
+
+        $("#id_Area").attr("class", 'form-control')
+        $("#id_ComputoRegistrado").attr("class", 'form-control')
+        $("#id_tags").attr("class", 'form-control')
+        $("#id_screenshot").attr("style", ' display: none !important;')
+
+
+        $("#id_screenshot").removeAttr("required", 'false')
+     
+    //    $("#id_ComputoRegistrado").removeAttr("required", 'false')
+        $("option").attr("style", 'color:black')
+        $("#id_Area").removeAttr("required", 'false')
+
+  //      $("#id_Area").removeAttr("required", 'false')
+//$("#id_ip_dir").removeAttr("required", 'false')
+        
+        
+    });
+
+
+</script>
+{% endblock javascripts %}

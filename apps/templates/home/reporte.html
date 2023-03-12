@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Email Receipt</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+</head>
+
+<body>
+<div style="text-align: center;">
+    <p style="word-spacing: 2px; line-height:2px"> Universidad Nacional Experimental de los Llanos Centrales Romulo Gallegos</p>
+    <p style="word-spacing: 2px; line-height:2px" > San Juan de los Morros</p>
+    <p style="word-spacing: 2px; line-height:2px"> Guárico </p>
+</div>
+    <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">
+        {{serviceRequest.title}} Orden Cerrada </h1>
+    <!-- start preheader -->
+
+    <!-- end preheader -->
+
+    <!-- start body -->
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="">
+
+        <!-- start copy -->
+        <tr>
+            <td align="left" bgcolor="#ffffff"
+                style="padding: 1px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 9px;">
+                <p style="margin: 0;">Nombre: {{customer.first_name}} {{customer.last_name}}</a></p>
+                <p style="margin: 0;"> Usuario: {{customer.username}} </a></p>
+                <p style="margin: 0;">Email: {{customer.email}} </a></p>
+            </td>
+            <td align="left" bgcolor="#ffffff"
+                style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px;">
+
+            </td>
+            <td align="left" bgcolor="#ffffff"
+                style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px;">
+
+            </td>
+            <td align="left" bgcolor="#ffffff"
+                style="padding: 1px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 9px;">
+                <p style="margin: 0;">Nombre: {{tech.first_name}} {{tech.last_name}}</a></p>
+                <p style="margin: 0;"> Usuario: {{tech.username}} </a></p>
+                <p style="margin: 0;">Email: {{tech.email}} </a></p>
+            </td>
+        </tr>
+
+
+
+
+
+
+
+
+        <!--Imagen problema: <img src='{{serviceRequest.screenshot}}'width="10px" />
+Imagen Solucion: <img src='{{response.screenshot}}' width="10px%" />-->
+
+
+        <!-- end copy -->
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- start receipt table -->
+
+        <!-- end reeipt table -->
+
+    </table>
+
+
+
+    <br>
+    <table>
+        <tr align="left" bgcolor="#ffffff"
+        style="padding: 1px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 9px;">
+      
+        <td>
+            <h2>Informacion del Dispositivo</h2>   
+            <p style="margin: 0;"> IP: {{serviceRequest.ip_dir}} <a href="https://sendgrid.com"> </a></p>
+            <p style="margin: 0;">MAC: {{serviceRequest.mac_dir}} <a href="https://sendgrid.com"> </a></p>
+
+        </td>
+
+        
+
+    </tr>
+    </table>
+    <!-- end body -->
+
+
+
+    <table>
+        <tr align="left" bgcolor="#ffffff"
+        style="padding: 1px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 9px;">
+      
+        <td>
+ 
+            <h2>Problemática</h2>   
+
+            <p style="margin: 0;"> Descripcion del problema: </p>
+            <p>
+                {{serviceRequest.description}}
+            </p>
+        
+
+        </td>
+        <td>
+            <h2>Componentes faltantes/Dañados</h2>  
+            {% for equ in equipo  %}
+                <div style="border: solid 1px; border-radius: 15px; text-align: center; padding:10px; margin:30px">
+                    <p style="word-spacing: 2px; line-height:2px">Nombre:{{equ.nombre_equipo}} 
+<br>
+                    Equipo: {{equ.modelo}}</p>
+                  
+              
+                </div>
+             
+            {% endfor %}
+        
+        </td>
+        <td style="margin:30px">
+            <img src='{{serviceRequest.screenshot}}' width="20%">
+       
+        </td>
+
+        
+
+    </tr>
+    </table>
+
+
+
+
+    <table>
+        <tr align="left" bgcolor="#ffffff"
+        style="padding: 1px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 9px;">
+      
+        <td>
+ 
+            <h2>Problemática</h2>   
+
+            <p style="margin: 0;"> Descripcion del problema: </p>
+            <p>
+                {{response.description}}
+            </p>
+        
+
+        </td>
+        <td>
+            <h2>Componentes Restaurados</h2>  
+            {% for equ in equipo  %}
+                <div style="border: solid 1px; border-radius: 15px; text-align: center; padding:10px; margin:30px">
+                    <p style="word-spacing: 2px; line-height:2px">Nombre:{{equ.nombre_equipo}} 
+<br>
+                    Equipo: {{equ.modelo}}</p>
+                  
+              
+                </div>
+             
+            {% endfor %}
+        
+        </td>
+        <td style="margin:30px">
+            <img src='{{response.screenshot}}' width="20%">
+       
+        </td>
+
+        
+
+    </tr>
+    </table>
+
+
+ 
+    <div style="text-align: center;">
+    <p> UNERG CAMINOS Y HORIZONES</p>
+    </div>
+</body>
+
+</html>
+{% block stylesheets %}
+
+
+{% endblock stylesheets %}

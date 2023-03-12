@@ -1,0 +1,68 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Register {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+    <div class="container">
+        <div class="row pt-5">
+            <div class="col-md-6 mt-5 offset-md-3 pt-5 mt-5">
+                <div class="card">
+                    <div class="card-header text-center py-4">
+                        <h3 class="title">
+                            {{order.title}}
+                        </h3>
+
+<div class="row">
+
+<div class="col-md-6">
+    <p class="card-text text-left"><small>Creado por <strong>{{order.customer}}</strong> el dia
+        <strong>{{order.date_created}}</strong></small> </p>
+</div>
+
+<div class="col-md-6">
+    <p class="card-text text-right"><small>se encuentra <strong>{{order.status}}</strong></small> {% if order.takenby %} {{order.takenby}} {% else %}  {% endif %}</p>
+
+</div>
+
+
+</div>
+
+                       
+
+                           
+                    </div>
+                    <div class="card-body px-5 py-3">
+                        
+                        <p>{{order.description}}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        
+
+                        <br /><br />
+
+                        <!--  <p>
+                            Have an account? <a href="/login.html" class="text-primary">Login</a>
+                            
+                        </p>-->
+                      <a href="{% url 'iniciar_chat' %}" > Iniciar Chat</a>
+                      <a href="{% url 'generar_reporte' %}" > Iniciar Chat</a>
+                    </div>
+
+                  
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
