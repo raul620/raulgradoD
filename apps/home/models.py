@@ -82,7 +82,7 @@ class Software(models.Model):
 
 
 
-
+'''
 
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -92,3 +92,4 @@ new_group, created = Group.objects.get_or_create(name='myUser')
 
 #permission = Permission.objects.create()
 #new_group.permissions.add(permission)
+'''
