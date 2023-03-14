@@ -28,7 +28,7 @@ ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
 
 # load production server from .env
 ALLOWED_HOSTS        = ['*' ]
-CSRF_TRUSTED_ORIGINS = ['http://localhost:5433', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
 
 # Application definition
 
@@ -107,11 +107,11 @@ else:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proyecto3',
+        'NAME': 'railway',
         'USER' : 'postgres',
-        'PASSWORD' : 'admin',
-        'HOST' : 'localhost',
-        'PORT': '5433'
+        'PASSWORD' : 'UFDmVHw7SHnMsWSDHDWC',
+        'HOST' : 'containers-us-west-204.railway.app',
+        'PORT': '6613'
     }
 }
 
