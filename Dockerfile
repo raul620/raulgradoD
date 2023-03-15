@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install virtualenv
 
 RUN virtualenv  env
-RUN env\Scripts\activate
+#RUN env\Scripts\activate
 
 #COPY requirements.txt .
 # install python dependencies
@@ -20,7 +20,7 @@ RUN pip install -r requirements.txt
 RUN python manage.py makemigrations
 RUN python manage.py migrate
 
-RUN python manage.py runserver
+#RUN python manage.py runserver
 
 # gunicorn
 CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
