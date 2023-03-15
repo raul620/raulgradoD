@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install virtualenv
 
 RUN virtualenv  env
-RUN source env/bin/activate
+RUN env\Scripts\activate
 
 #COPY requirements.txt .
 # install python dependencies
