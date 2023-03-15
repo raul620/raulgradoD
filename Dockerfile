@@ -4,16 +4,23 @@ FROM python:3.9
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-COPY requirements.txt .
+RUN pip install virtualenv
+
+RUN virtualenv  env
+RUN source env/bin/activate
+
+#COPY requirements.txt .
 # install python dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY . .
+#COPY . .
 
 # running migrations
 RUN python manage.py makemigrations
 RUN python manage.py migrate
+
+RUN python manage.py runserver
 
 # gunicorn
 CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
